@@ -1,34 +1,25 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { MajorsModule } from './majors/majors.module';
-import { LecturersModule } from './lecturers/lecturers.module';
-import { CurriculaModule } from './curricula/curricula.module';
-import { SemestersModule } from './semesters/semesters.module';
-import { SubjectsModule } from './subjects/subjects.module';
-import { Major } from './majors/entities/major.entity';
-import { Lecturer } from './lecturers/entities/lecturer.entity';
-import { Curriculum } from './curricula/entities/curriculum.entity';
-import { Semester } from './semesters/entities/semester.entity';
-import { Subject } from './subjects/entities/subject.entity';
-
-
+import { ConfigModule } from '@nestjs/config';
+// Loại bỏ import BullModule nếu không còn sử dụng
+// import { BullModule } from '@nestjs/bull';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { DatabaseModule } from './app/modules/database/database.module';
+import { UserModule } from './app/modules/users/users.module';
+import { RolesModule } from './app/modules/roles/roles.module';
+import { AuthModule } from './app/modules/auth/auth.module';
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '123456',
-      database: 'miniu_db',
-      entities: [Major, Lecturer, Curriculum, Semester, Subject],
-      synchronize: true, // Chỉ dùng cho development
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
     }),
-    MajorsModule,
-    LecturersModule,
-    CurriculaModule,
-    SemestersModule,
-    SubjectsModule,
+    DatabaseModule,
+    UserModule,
+    RolesModule,
+    AuthModule,
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

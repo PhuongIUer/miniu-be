@@ -2,9 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger, ValidationPipe } from '@nestjs/common';
-
+import { initializeTransactionalContext } from 'typeorm-transactional';
 async function bootstrap() {
-
+  initializeTransactionalContext();
+  
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
