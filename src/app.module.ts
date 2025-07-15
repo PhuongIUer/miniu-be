@@ -8,6 +8,7 @@ import { DatabaseModule } from './app/modules/database/database.module';
 import { UserModule } from './app/modules/users/users.module';
 import { RolesModule } from './app/modules/roles/roles.module';
 import { AuthModule } from './app/modules/auth/auth.module';
+import { CurriculumModule } from './app/modules/curriculum/curriculum.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -18,6 +19,7 @@ import { AuthModule } from './app/modules/auth/auth.module';
     UserModule,
     RolesModule,
     AuthModule,
+    CurriculumModule,
   ],
   controllers: [AppController],
   providers: [AppService],

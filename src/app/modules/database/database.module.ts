@@ -14,7 +14,7 @@ import { entitiesConstant } from '../../common/constant/entities.constant';
         username: 'postgres',
         password: '123456',
         database: 'miniu_db',
-        entities: entitiesConstant,
+        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: true, // Chỉ dùng cho development
       }),
       async dataSourceFactory(options) {

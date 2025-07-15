@@ -13,12 +13,16 @@ export class UserDto{
     
     @Expose()
     avatar: string;
-
+    
     @Expose()
-    isVerified: boolean;
-
+    major: string;
+    
     @Expose()
-    isBlocked: boolean;
+    position: string;
+    
+    @Expose()
+    office: string;
+
     @Expose()
     @Type(()=>RoleDto)  
     role: RoleDto;

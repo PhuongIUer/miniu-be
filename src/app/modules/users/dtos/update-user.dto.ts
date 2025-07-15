@@ -17,4 +17,20 @@ export class UpdateUserDto {
   @IsOptional()
   @IsString()
   userName?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  major?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  position?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  office?: string;
+
 } 

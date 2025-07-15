@@ -20,24 +20,15 @@ export class User extends AbstractEntity<User>{
   @Column({nullable: true})
   avatar: string;
 
-  @Column({ 
-    default: false,
-    name: "is_verified"
-  })
-  isVerified: boolean;
+  @Column({nullable: true})
+  major: string;
 
-  @Column({ 
-    nullable: true ,
-    name: "verification_code"
-  })
-  verificationCode: string;
+  @Column({nullable: true})
+  position: string;
 
-  @Column({ 
-    nullable: true, 
-    name: "verification_code_expires_at"
-  })
-  verificationCodeExpiresAt: Date;
-   
+  @Column({nullable: true})
+  office: string;
+
   @ManyToOne(()=>Role, role=>role.user)
   @JoinColumn({name: "role_id"})
   role: Role;

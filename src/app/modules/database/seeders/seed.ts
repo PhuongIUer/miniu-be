@@ -63,23 +63,17 @@ async function seedDatabase() {
           email: 'admin@example.com', 
           password: hashedAdminPassword,
           userName: 'admin',
-          isVerified: true,
-          role: roleMap.get('admin')
         }),
         
         userRepository.create({ 
           email: 'teacher@example.com', 
           password: hashedTeacherPassword,
           userName: 'teacher',
-          isVerified: true,
-          role: roleMap.get('teacher')
         }),
         userRepository.create({ 
           email: 'student@example.com', 
           password: hashedStudentPassword,
           userName: 'student',
-          isVerified: true,
-          role: roleMap.get('student')
         }),
       ];
       

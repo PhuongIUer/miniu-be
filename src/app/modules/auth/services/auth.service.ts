@@ -102,7 +102,6 @@ export class AuthService {
         email: registerDto.email,
         password: hashedPassword,
         role: role,
-        isVerified: true, // Auto-verify since we're not using OTP
       });
 
       const savedUser = await this.userRepository.save(newUser);
