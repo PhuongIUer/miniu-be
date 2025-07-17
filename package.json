@@ -26,7 +26,7 @@
     "seed:config": "cd apps/course-management && ts-node --project tsconfig.app.json src/app/modules/database/seeders/global-config.seed.ts",
     "course:dev": "nx serve course-management",
     "backjob:dev": "nx serve background-job",
-    "build": "npx nx build miniu-be",
+    "build": "nest build ",
     "build:course-management": "nx build course-management",
     "build:background-job": "nx build background-job",
     "test": "nx run course-management:test"
