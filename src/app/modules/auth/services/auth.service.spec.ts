@@ -122,7 +122,7 @@ describe('Auth services', () => {
       jest.spyOn(authService, 'validateUser').mockResolvedValue({
         ...mockUsers[0],
         isVerified: false,
-      } as User);
+      } as unknown as User);
       await expect(authService.login(mockLoginDto)).rejects.toThrow(
         'Email not verified. Please verify your email first.'
       );

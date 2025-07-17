@@ -11,7 +11,7 @@ import {
 import { CurriculumResponseDto } from '../dtos/curriculum.dto';
 
 export function ApiCurriculumResponse(
-  type: 'create' | 'findAll' | 'findOne' | 'update' | 'remove'
+  type: 'create' | 'findAll' | 'findOne' | 'update' | 'remove' | 'findLatestOne'
 ) {
   switch (type) {
     case 'create':
@@ -59,6 +59,17 @@ export function ApiCurriculumResponse(
           type: CurriculumResponseDto
         }),
         ApiResponse({ status: 404, description: 'Curriculum not found' })
+      );
+
+    case 'findLatestOne':
+      return applyDecorators(
+        ApiOperation({ summary: 'Get detailed Curriculum Latest information' }),
+        ApiResponse({ 
+          status: 200, 
+          description: 'Curriculum information',
+          type: CurriculumResponseDto
+        }),
+        ApiResponse({ status: 404, description: 'Curriculum Latest not found' })
       );
 
     case 'update':

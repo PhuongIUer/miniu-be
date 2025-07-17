@@ -25,6 +25,11 @@ export class CurriculumController {
   async findOne(@Param('curriculumId') curriculumId: string): Promise<CurriculumResponseDto> {
     return this.curriculumService.findOne(+curriculumId);
   }
+  @Get('latest')
+  @ApiCurriculumResponse('findLatestOne')
+  async findLatestOne(): Promise<CurriculumResponseDto> {
+    return this.curriculumService.findLatestOne();
+  }
 
   @Patch(':id')
   @UseGuards(RoleGuard(['admin', 'curriculum-manager']))

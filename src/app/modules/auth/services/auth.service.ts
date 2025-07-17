@@ -129,6 +129,31 @@ export class AuthService {
 
     return user;
   }
+async deleteUser(userId: number ): Promise<{ message: string }> {
+  try {
+    // Find user by ID
+    const user = await this.userRepository.findOne({ 
+      where: { id: userId },
+      relations: ['role']
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Delete user
+    await this.userRepository.remove(user);
+
+    return {
+      message: 'User account has been deleted successfully'
+    };
+  } catch (error) {
+    if (error instanceof NotFoundException || error instanceof UnauthorizedException) {
+      throw error;
+    }
+    throw new InternalServerErrorException('Failed to delete user account');
+  }
+}
 
   async changePassword(userId: number, changePasswordDto: ChangePasswordDto) {
     const { currentPassword, newPassword, confirmPassword } = changePasswordDto;

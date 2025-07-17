@@ -50,15 +50,13 @@ export class MajorService {
 
   async findOne(id: number): Promise<MajorResponseDto> {
     const major = await this.majorRepository.findOne({ 
-      where: { id },
-      relations: ['curriculum']
+      where: { id }
     });
     if (!major) {
       throw new NotFoundException(`Major with ID ${id} not found`);
     }
     return plainToInstance(MajorResponseDto, {
-        ...major,
-        curriculum: major.curriculum.id
+        ...major
     });
   }
   async findAllByCurriculumId(curriculumId: number): Promise<Major[]> {

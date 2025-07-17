@@ -27,8 +27,21 @@ export class CurriculumService {
   });
 
     const savedCurriculum = await this.curriculumRepository.save(curriculum);
-    return this.findOne(savedCurriculum.id);
+    return this.findOneWithId(savedCurriculum.id);
   }
+async findLatestOne(): Promise<CurriculumResponseDto> {
+  const [latestCurriculum] = await this.curriculumRepository.find({
+    order: {
+      id: 'DESC' 
+    },
+    take: 1
+  });
+
+  if (!latestCurriculum) {
+    throw new NotFoundException('No curriculum found');
+  }
+  return this.findOne(latestCurriculum.id);
+}
 
 async findOne(id: number) {
   const curriculum = await this.curriculumRepository.findOne({ where: { id } });
@@ -36,7 +49,6 @@ async findOne(id: number) {
 
   const majors = await this.majorService.findAllByCurriculumId(id);
 
-  // Hàm đệ quy xóa tất cả các trường 'id'
   const removeIds = (obj: any) => {
     if (Array.isArray(obj)) {
       return obj.map(item => removeIds(item));
@@ -52,6 +64,14 @@ async findOne(id: number) {
   };
 
   return removeIds({ ...curriculum, majors });
+}
+async findOneWithId(id: number) {
+  const curriculum = await this.curriculumRepository.findOne({ where: { id } });
+  if (!curriculum) throw new NotFoundException(`Curriculum ${id} not found`);
+
+  const majors = await this.majorService.findAllByCurriculumId(id);
+
+  return { ...curriculum, majors };
 }
 
   @Transactional()

@@ -45,6 +45,15 @@ export class UsersController {
     const userId = request.user.id;
     return this.usersService.updateMe(userId, body);
   }
+  @UseGuards(RoleGuard(['admin']))
+  @Get('email/:email')
+  @Serialize(UserDto)
+  @ApiOperation({ summary: 'Get user by email (admin only)' })
+  @ApiBearerAuth('JWT-auth')
+  @ApiParam({ name: 'email', description: 'User email to search' })
+  getUserByEmail(@Param('email') email: string) {
+    return this.usersService.getUserByEmail(email);
+  }
 
   @UseGuards(RoleGuard(['admin']))
   @Patch(':id/profile')

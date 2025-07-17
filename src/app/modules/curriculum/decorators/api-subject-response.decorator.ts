@@ -21,13 +21,13 @@ export function ApiSubjectResponse(
         ApiBody({
           schema: {
             type: 'object',
-            required: ['name', 'credit'],
+            required: ['name', 'credits'],
             properties: {
               name: {
                 type: 'string',
                 example: 'Subject 1: New Item'
               },
-              credit: {
+              credits: {
                 type: 'number',
                 example: 0
               }
@@ -79,7 +79,7 @@ export function ApiSubjectResponse(
                 type: 'string',
                 example: 'Subject 1: New Item (Updated)'
               },
-              credit: {
+              credits: {
                 type: 'number',
                 example: 1
               }

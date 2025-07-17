@@ -18,7 +18,19 @@ export class UsersService{
     @InjectRepository(Role)
     private readonly roleRepository: Repository<Role>
   ){}
-
+  
+async getUserByEmail(email: string) {
+  const user = await this.userRepository.findOne({ 
+    where: { email },
+    relations: ['role']
+  });
+  
+  if (!user) {
+    throw new NotFoundException('User not found');
+  }
+  
+  return user;
+}
   async findAll(page, limit) {
     const skip = (page - 1) * limit;
     

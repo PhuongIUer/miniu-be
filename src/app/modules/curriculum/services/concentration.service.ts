@@ -68,15 +68,13 @@ export class ConcentrationService {
 
   async findOne(id: number): Promise<ConcentrationResponseDto> {
     const concentration = await this.concentrationRepository.findOne({ 
-      where: { id },
-      relations: ['major']
+      where: { id }
     });
     if (!concentration) {
       throw new NotFoundException(`Concentration with ID ${id} not found`);
     }
     return plainToInstance(ConcentrationResponseDto, {
-      ...concentration,
-      majorId: concentration.major.id
+      ...concentration
     });
   }
 

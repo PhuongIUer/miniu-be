@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, UseGuards, Request, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Request, Param, Delete } from '@nestjs/common';
 import { 
   ApiTags, 
   ApiOperation,
@@ -15,6 +15,7 @@ import { RegisterResponseDto } from './dto/register-response.dto';
 import { UserDto } from '../users/dtos/user.dto';
 import { ApiAuthResponse } from './decorators/api-auth.decorator';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import RoleGuard from '../../core/guards/roles.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -39,9 +40,11 @@ export class AuthController {
   }
   
   @Post('register')
-  @ApiOperation({ summary: 'Register new user' })
+  @ApiOperation({ summary: 'Register new user (Admin only)' }) 
   @ApiAuthResponse('register')
   @Serialize(RegisterResponseDto)
+  @UseGuards(JwtAuthGuard, RoleGuard(['admin']))
+  @ApiBearerAuth('JWT-auth') 
   async register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
   }
@@ -65,4 +68,14 @@ export class AuthController {
   ) {
     return this.authService.changePassword(req.user.id, changePasswordDto);
   }
+
+  @Delete('users/:id')
+  @ApiOperation({ summary: 'Delete user (Admin only)' })
+  @UseGuards(JwtAuthGuard, RoleGuard(['admin']))
+  @ApiBearerAuth('JWT-auth')
+  async deleteUser(
+  @Param('id') userId: number,
+) {
+  return this.authService.deleteUser(userId);
+}
 } 

@@ -69,15 +69,13 @@ export class SemesterService {
 
   async findOne(id: number): Promise<SemesterResponseDto> {
     const semester = await this.semesterRepository.findOne({ 
-      where: { id },
-      relations: ['subjects']
+      where: { id }
     });
     if (!semester) {
       throw new NotFoundException(`Semester with ID ${id} not found`);
     }
     return plainToInstance(SemesterResponseDto, {
-        ...semester,
-        concentrationId: semester.concentration.id
+        ...semester
     });
   }
 

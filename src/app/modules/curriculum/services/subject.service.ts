@@ -38,15 +38,13 @@ export class SubjectService {
 
   async findOne(id: number): Promise<SubjectResponseDto> {
     const subject = await this.subjectRepository.findOne({ 
-        where: { id }, 
-        relations: ['semester']
+        where: { id }
     });
     if (!subject) {
       throw new NotFoundException(`Subject with ID ${id} not found`);
     }
     return plainToInstance(SubjectResponseDto, {
-        ...subject, 
-        semesterId: subject.semester.id 
+        ...subject
     });
 
   }
