@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: miniu-be
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    autoDeploy: true
