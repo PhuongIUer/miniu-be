@@ -18,11 +18,9 @@ import { avatarUploadConfig } from '../../config/multer.config';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @UseGuards(RoleGuard(['admin']))
   @Get()
   @Serialize(PaginatedUsersDto)
-  @ApiOperation({ summary: 'Get all users (admin only)' })
-  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Get all users' })
   @ApiQuery({ name: 'page', description: 'number of page', required: false, type: Number })
   @ApiQuery({ name: 'limit', description: 'number of item per page', required: false, type: Number })
   findAll(
@@ -45,6 +43,7 @@ export class UsersController {
     const userId = request.user.id;
     return this.usersService.updateMe(userId, body);
   }
+  
   @UseGuards(RoleGuard(['admin']))
   @Get('email/:email')
   @Serialize(UserDto)
