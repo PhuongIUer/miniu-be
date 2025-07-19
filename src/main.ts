@@ -11,7 +11,9 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   
   // Enable CORS
-  app.enableCors();
+    app.enableCors({
+    origin: '*', // ⚠️ Cẩn trọng nếu lên production
+  });
   
   // Enable validation
   app.useGlobalPipes(new ValidationPipe({
